@@ -17,7 +17,7 @@
     "transport"
   ],
   "dependencies": {
-    "daily-storage": "0.2.x",
+    "daily-storage": "0.3.x",
     "daily-protocol": "0.2.x"
   },
   "devDependencies": {

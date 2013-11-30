@@ -48,6 +48,8 @@ Details is an `object` there must contain all the following properties:
 }
 ```
 
+Note that it is not possible to write data when data is currently being read.
+
 #### Readable = client.reader(details)
 
 The `.reader` methods takes an `object` there must contain the following properties:
@@ -71,12 +73,15 @@ server not to send more data and then emit a `close` event.
 
 The `ReadableStream` also has an `error` event.
 
-#### client.close([callback])
+#### Boolean = client.reading
+
+Simpel flag, its true if there is currently being read data.
+
+#### client.close()
 
 This will stop all `readable` streams and let all writes return with a callback.
 When everything currently active is completed the `socket.close()` method will
-be executed, and when it is closed too the `client` will emit a `close` event
-and execute the optional callback.
+be executed, and when it is closed too the `client` will emit a `close` event.
 
 In the mean time between the `.close()` call and `close` event, all new requests
 be denined by throwing an error.
@@ -86,7 +91,11 @@ be denined by throwing an error.
 When the client gets closed eiter by the `socket` or a `.close()` call this event
 is emitted.
 
-### server = new Server(path, options)
+#### client.on('error')
+
+Errors caused by the underlying socket will be emitted here.
+
+### server = new Server(path, [options])
 
 The `path` is the LevelDB filepath and the `options` are related to the internals
 of the backend `storage`. For more details on both see the
@@ -103,10 +112,10 @@ net.createServer(function (socket) {
 });
 ```
 
-#### server.close(callback)
+#### server.close()
 
 This will close all the sockets and then the backend storage. When all is
-done the `close` event` will be emitted and the `callback` is executed.
+done the `close` event` will be emitted.
 
 #### server.on('error')
 
