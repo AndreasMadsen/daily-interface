@@ -73,10 +73,6 @@ server not to send more data and then emit a `close` event.
 
 The `ReadableStream` also has an `error` event.
 
-#### Boolean = client.reading
-
-Simpel flag, its true if there is currently being read data.
-
 #### client.close()
 
 This will stop all `readable` streams and let all writes return with a callback.
@@ -121,7 +117,7 @@ done the `close` event` will be emitted.
 
 Errors from the backend storage will be emitted here.
 
-#### server.on('close')
+#### server.once('close')
 
 This can only be caused by a `server.close()` call.
 

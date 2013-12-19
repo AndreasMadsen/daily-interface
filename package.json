@@ -17,8 +17,9 @@
     "transport"
   ],
   "dependencies": {
+    "async": "0.2.x",
     "daily-storage": "0.3.x",
-    "daily-protocol": "0.2.x"
+    "daily-protocol": "0.3.x"
   },
   "devDependencies": {
     "tap": "0.4.x",
