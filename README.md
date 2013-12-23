@@ -8,8 +8,6 @@
 npm install daily-interface
 ```
 
-## Work In Progress
-
 ## Documentation
 
 **Unless you want to write your own low-level daily interfaces you don't need this module.**
