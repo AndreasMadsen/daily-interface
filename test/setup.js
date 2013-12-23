@@ -5,6 +5,7 @@ var test = require('tap').test;
 var path = require('path');
 var async = require('async');
 var wrench = require('wrench');
+var endpoint = require('endpoint');
 var DailyServer = require('../daily-interface.js').Server;
 
 var DB_PATH = path.resolve(__dirname, 'temp.db');
@@ -34,6 +35,19 @@ ServerSetup.prototype.open = function () {
       t.end();
     });
   });
+};
+
+ServerSetup.prototype.dump = function (callback) {
+  var reader = this.handler._storage.reader({
+    'type': 'read-start',
+    'startSeconds': null,
+    'startMilliseconds': null,
+    'endSeconds': null,
+    'endMilliseconds': null,
+    'levels': [0, 9]
+  });
+
+  reader.pipe(endpoint({ objectMode: true }, callback));
 };
 
 ServerSetup.prototype.close = function () {
