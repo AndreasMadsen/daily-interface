@@ -2,7 +2,6 @@
 var net = require('net');
 var test = require('tap').test;
 var async = require('async');
-var endpoint = require('endpoint');
 
 var now = require('../now.js')();
 var setup = require('../remote.js')();
@@ -90,6 +89,48 @@ test('reader will stop on socket destroy', function (t) {
       if (!closeing) {
         closeing = true;
         socket.destroy();
+      }
+      logs.push(log.message.toString());
+    })
+    .once('error', function (err) {
+      error = err;
+    })
+    .once('end', function () {
+      ended = true;
+    })
+    .once('close', function () {
+      closed = true;
+    });
+
+  client.once('close', function () {
+    t.ok(logs.length < 10);
+    t.equal(logs[0], 'message - A');
+    t.equal(error.message, 'socket closed prematurely');
+    t.equal(ended, false);
+    t.equal(closed, true);
+    t.end();
+  });
+});
+
+test('reader will stop on socket end', function (t) {
+  var socket = net.connect(setup.port, '127.0.0.1');
+  var client = new DailyClient(socket);
+  var logs = [], error = null, ended = false, closed = false;
+  var closeing = false;
+
+  var reader = client.reader({
+    'startSeconds': null,
+    'startMilliseconds': null,
+    'endSeconds': null,
+    'endMilliseconds': null,
+    'levels': [1, 9]
+  });
+
+  reader
+    .on('data', function (log) {
+      if (!closeing) {
+        closeing = true;
+        socket.end();
       }
       logs.push(log.message.toString());
     })

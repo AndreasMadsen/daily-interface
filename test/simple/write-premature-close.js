@@ -29,6 +29,29 @@ test('write will complete on client close', function (t) {
   });
 });
 
+test('write will return error on socket end', function (t) {
+  var socket = net.connect(setup.port, '127.0.0.1');
+  var client = new DailyClient(socket);
+  var done = false;
+
+  client.log({
+    'seconds': now.second,
+    'milliseconds': now.millisecond,
+    'level': 1,
+    'message': new Buffer('single message')
+  }, function (err) {
+    t.equal(err.name, 'Error');
+    t.equal(err.message, 'socket closed prematurely the result is unkown');
+    done = true;
+  });
+
+  socket.end();
+  client.once('close', function () {
+    t.ok(done, 'log callback called');
+    t.end();
+  });
+});
+
 test('write will return error on socket destroy', function (t) {
   var socket = net.connect(setup.port, '127.0.0.1');
   var client = new DailyClient(socket);
