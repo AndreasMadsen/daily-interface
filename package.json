@@ -1,7 +1,7 @@
 {
   "name": "daily-interface",
   "description": "daily - The transport independent interface",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "./daily-interface.js",
   "scripts": {
