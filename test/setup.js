@@ -6,6 +6,7 @@ var path = require('path');
 var async = require('async');
 var wrench = require('wrench');
 var endpoint = require('endpoint');
+var DailyStorage = require('daily-storage');
 var DailyServer = require('../daily-interface.js').Server;
 
 var DB_PATH = path.resolve(__dirname, 'temp.db');
@@ -24,7 +25,7 @@ ServerSetup.prototype.open = function () {
   var self = this;
 
   test('open daily server', function (t) {
-    self.handler = new DailyServer(DB_PATH);
+    self.handler = new DailyServer(new DailyStorage(DB_PATH));
 
     self.server = net.createServer(function (socket) {
       self.handler.dispatch(socket);

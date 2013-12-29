@@ -4,13 +4,14 @@ var net = require('net');
 var test = require('tap').test;
 var path = require('path');
 var wrench = require('wrench');
+var DailyStorage = require('daily-storage');
 var DailyServer = require('../daily-interface.js').Server;
 var fork = require('child_process').fork;
 
 var DB_PATH = path.resolve(__dirname, 'temp.db');
 
 if (process.argv[2] === 'server') {
-  var handler = new DailyServer(DB_PATH);
+  var handler = new DailyServer(new DailyStorage(DB_PATH));
 
   var server = net.createServer(function (socket) {
     handler.dispatch(socket);

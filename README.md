@@ -89,11 +89,17 @@ is emitted.
 
 Errors caused by the underlying socket will be emitted here.
 
-### server = new Server(path, [options])
+### server = new Server(storage)
 
-The `path` is the LevelDB filepath and the `options` are related to the internals
-of the backend `storage`. For more details on both see the
-[`daily-storage`](https://github.com/AndreasMadsen/daily-storage#documentation) documentation.
+The `storage` argument is a object you can create with [`daily-storage`](https://github.com/AndreasMadsen/daily-storage#documentation)
+or a similar module.
+
+```javascript
+var DailyInterface = require('daily-interface');
+var DailyStorage = require('daily-storage');
+
+var server = new DailyInterface(new DailyStoreage(DB_PATH));
+```
 
 #### server.dispatch(socket)
 
