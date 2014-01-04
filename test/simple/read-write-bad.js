@@ -111,14 +111,15 @@ test('write after reading', function (t) {
 
   async.series([
     function (done) {
-      client.reader({
+      var reader = client.reader({
         'type': 'read-start',
         'startSeconds': null,
         'startMilliseconds': null,
         'endSeconds': null,
         'endMilliseconds': null,
         'levels': [1, 9]
-      }).pipe(endpoint({ objectMode: true }, done));
+      });
+      reader.once('close', done);
     }, function (done) {
       client.log({
         'seconds': now.second,
