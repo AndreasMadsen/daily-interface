@@ -4,7 +4,7 @@ var net = require('net');
 var test = require('tap').test;
 var path = require('path');
 var async = require('async');
-var wrench = require('wrench');
+var rimraf = require('rimraf');
 var endpoint = require('endpoint');
 var DailyStorage = require('daily-storage');
 var DailyServer = require('../daily-interface.js').Server;
@@ -14,7 +14,7 @@ var DB_PATH = path.resolve(__dirname, 'temp.db');
 function ServerSetup() {
   if (!(this instanceof ServerSetup)) return new ServerSetup();
 
-  if (fs.existsSync(DB_PATH)) wrench.rmdirSyncRecursive(DB_PATH);
+  if (fs.existsSync(DB_PATH)) rimraf.sync(DB_PATH);
   this.server = null;
   this.handler = null;
   this.port = 0;

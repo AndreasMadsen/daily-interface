@@ -38,7 +38,7 @@ test('read while writing', function (t) {
       }
     }
   ], function (err) {
-    t.equal(err, null);
+    t.ifError(err);
     client.once('close', t.end.bind(t));
     client.close();
   });
@@ -66,7 +66,7 @@ test('read after writing', function (t) {
       }).pipe(endpoint({ objectMode: true }, done));
     }
   ], function (err) {
-    t.equal(err, null);
+    t.ifError(err);
     client.once('close', t.end.bind(t));
     client.close();
   });
@@ -100,7 +100,7 @@ test('write while reading', function (t) {
       }
     }
   ], function (err) {
-    t.equal(err, null);
+    t.ifError(err);
     client.once('close', t.end.bind(t));
     client.close();
   });
@@ -129,7 +129,7 @@ test('write after reading', function (t) {
       }, done);
     }
   ], function (err) {
-    t.equal(err, null);
+    t.ifError(err);
     client.once('close', t.end.bind(t));
     client.close();
   });

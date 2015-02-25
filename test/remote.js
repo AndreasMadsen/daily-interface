@@ -3,7 +3,7 @@ var fs = require('fs');
 var net = require('net');
 var test = require('tap').test;
 var path = require('path');
-var wrench = require('wrench');
+var rimraf = require('rimraf');
 var DailyStorage = require('daily-storage');
 var DailyServer = require('../daily-interface.js').Server;
 var fork = require('child_process').fork;
@@ -34,7 +34,7 @@ module.exports = (function () {
   function ServerSetup() {
     if (!(this instanceof ServerSetup)) return new ServerSetup();
 
-    if (fs.existsSync(DB_PATH)) wrench.rmdirSyncRecursive(DB_PATH);
+    if (fs.existsSync(DB_PATH)) rimraf.sync(DB_PATH);
     this.child = 0;
     this.port = 0;
   }

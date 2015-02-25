@@ -37,7 +37,7 @@ test('overflow error', { timeout: Infinity }, function (t) {
   };
 
   async.parallel(createQueue(client, writeRequest, CRITICAL_LIMIT + 1), function (err, result) {
-    t.equal(err, null);
+    t.ifError(err);
 
     var failures = result.filter(function (error) { return error !== null; });
     t.equal(failures.length, 1);

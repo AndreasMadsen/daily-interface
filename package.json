@@ -17,12 +17,12 @@
     "transport"
   ],
   "dependencies": {
-    "async": "0.2.x",
+    "async": "0.9.x",
     "daily-protocol": "0.3.x"
   },
   "devDependencies": {
-    "tap": "0.4.x",
-    "wrench": "1.5.x",
+    "tap": "0.6.x",
+    "rimraf": "2.2.x",
     "endpoint": "0.4.x",
     "daily-storage": "0.4.x"
   },

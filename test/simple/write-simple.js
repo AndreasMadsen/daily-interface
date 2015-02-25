@@ -68,7 +68,7 @@ test('multiply writes', function (t) {
       }, done);
     }
   ], function (err) {
-    t.equal(err, null);
+    t.ifError(err);
 
     client.once('close', t.end.bind(t));
     client.close();
